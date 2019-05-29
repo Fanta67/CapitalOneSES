@@ -66,15 +66,16 @@
       var state = document.getElementById("state").value;
       var keywords = document.getElementById("keywords").value.split(" ");
       if(state == "" && keywords == "") return;
-      location.href = "results.html?";
+      var str = "results.html?";
       if (state != "") {
-        location.href += "state=" + state + "&";
+        str += "state=" + state + "&";
       }
       if (keywords != "") {
         for (var i = 0; i < keywords.length; i++) {
-          location.href += "keywords=" + keywords[i] + "&";
+          str += "keywords=" + keywords[i] + "&";
         }
       }
+      location.href = str;
     }
   </script>
 
