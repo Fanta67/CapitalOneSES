@@ -43,13 +43,18 @@
 
       <div id="c1" class="container-fluid">
         <h2 class="mt-4 title">Search by State</h2>
-        <select id = "state" name = "state" style = "width: 150px; position: absolute">
-          <option value = "" selected disabled hidden>Choose State</option>
+        <select id="state" name="state" style="width: 150px; position: absolute">
+          <option value="" selected disabled hidden>Choose State</option>
           <script src="stateScript.js"></script>
         </select>
         <br></br>
-        <button type = "submit" name = "submit" style = "width: 150px" onclick = submit()>Search</button>
+        <h2 class="mt-4 title">Search by Keywords (space delimited)</h2>
+        <input id="keywords" type="text" placeholder="Search keyword(s)" style="width: 150px" value="">
         <br></br>
+        <button type = "submit" name = "submit" style = "width: 150px" onclick = submit()>Find parks</button>
+        <br></br>
+
+
       </div>
     </div>
     <!-- /#page-content-wrapper -->
@@ -59,8 +64,17 @@
   <script>
     function submit() {
       var state = document.getElementById("state").value;
-      if(state == "") return;
-      location.href="results.html?state=" + state;
+      var keywords = document.getElementById("keywords").value.split(" ");
+      if(state == "" && keywords == "") return;
+      location.href = "results.html?";
+      if (state != "") {
+        location.href += "state=" + state + "&";
+      }
+      if (keywords != "") {
+        for (var i = 0; i < keywords.length; i++) {
+          location.href += "keywords=" + keywords[i] + "&";
+        }
+      }
     }
   </script>
 

@@ -12,7 +12,7 @@ file.onreadystatechange = function() {
         var fields = state.split("\t");
         const opt = document.createElement('option');
         opt.textContent = fields[0];
-        opt.value = fields[2];
+        opt.value = fields[2].substring(0, 2);
         select.appendChild(opt);
       }
     }
