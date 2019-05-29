@@ -20,8 +20,8 @@ request.onload = function () {
       h1.textContent = center.name;
 
       const p = document.createElement('p');
-      center.description = center.description.substring(0, 300);
-      p.textContent = `${center.description}...`;
+      center.description = center.description.substring(0, 500);
+      p.textContent = `${center.description}`;
 
       container.appendChild(card);
       card.appendChild(h1);
