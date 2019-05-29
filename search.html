@@ -30,9 +30,6 @@
       <div class="list-group list-group-flush">
         <a href="index.html" class="list-group-item list-group-item-action bg-light"><strong>Home</strong></a>
         <a href="search.html" class="list-group-item list-group-item-action bg-light">Search</a>
-        <a href="visitor-centers.html" class="list-group-item list-group-item-action bg-light">Visitor Centers</a>
-        <a href="alerts-articles-events-news.html" class="list-group-item list-group-item-action bg-light">Information</a>
-        <a href="lesson-plans.html" class="list-group-item list-group-item-action bg-light">Lesson Plans</a>
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -46,63 +43,16 @@
 
       <div id = "c1" class="container-fluid">
         <h2 class="mt-4 title">Search by State</h2>
-        <select id = "state" name = "state" style = "width: 150px; position: absolute" onmousedown = "collapse()" >
+        <select id = "state" name = "state" style = "width: 150px; position: absolute">
           <option value = "" selected disabled hidden>Choose here</option>
           <script src="stateScript.js"></script>
         </select>
         <br></br>
-        <button type = "submit" name = "submit" style = "width: 150px" onclick = "submitSearchRequest()">Search</button>
+        <button type = "submit" name = "submit" style = "width: 150px" onclick = location.href="https://fanta67.github.io/CapitalOneSES/results.html">Search</button>
         <br></br>
       </div>
     </div>
     <!-- /#page-content-wrapper -->
-    <script>  function collapse() {}  </script>
-    <script>
-    //TODO: MAKE THIS A SEPARATE SCRIPT/PAGE SO IT RELOADS WITH NEW SUBMISSION
-      function submitSearchRequest() {
-        var state = document.getElementById("state").value;
-        container = document.getElementById('c1');
-
-        var request = new XMLHttpRequest();
-        var link = "https://developer.nps.gov/api/v1/parks";
-        link += '?stateCode=' + state;
-        link += '&limit=50';
-        link += '&api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
-        request.open('GET', link, true);
-
-        request.onload = function () {
-          var stateParks = JSON.parse(request.responseText);
-          if (request.status == 200) {
-            const p = document.createElement('p');
-            var total = stateParks.total;
-            p.textContent = 'Results 1-' + total + ' below.'
-            p.align = "center";
-            container.appendChild(p);
-            stateParks.data.forEach(park => {
-              const card = document.createElement('div');
-              card.setAttribute('class', 'card');
-
-              const h1 = document.createElement('h1');
-              h1.textContent = park.name;
-
-              const p = document.createElement('p');
-              park.description = park.description.substring(0, 500);
-              p.textContent = `${park.description}`;
-
-              container.appendChild(card);
-              card.appendChild(h1);
-              card.appendChild(p);
-              /*const p = document.createElement("p");
-              p.textContent = park.name;
-              container.appendChild(p);*/
-            });
-          } else {
-            alert("Invalid search.");
-          }
-        }
-        request.send();
-      }
-    </script>
   </div>
   <!-- /#wrapper -->
 

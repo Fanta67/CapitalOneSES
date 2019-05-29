@@ -1,37 +1,44 @@
-const app = document.getElementById('root');
+//TODO: MAKE THIS A SEPARATE SCRIPT/PAGE SO IT RELOADS WITH NEW SUBMISSION
+  function submitSearchRequest() {
+    var state = document.getElementById("state").value;
+    container = document.getElementById('c1');
 
-const container = document.createElement('div');
-container.setAttribute('class', 'container');
+    var request = new XMLHttpRequest();
+    var link = "https://developer.nps.gov/api/v1/parks";
+    link += '?stateCode=' + state;
+    link += '&limit=50';
+    link += '&api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
+    request.open('GET', link, true);
 
-app.appendChild(container);
+    request.onload = function () {
+      var stateParks = JSON.parse(request.responseText);
+      if (request.status == 200) {
+        const p = document.createElement('p');
+        var total = stateParks.total;
+        p.textContent = 'Results 1-' + total + ' below.'
+        p.align = "center";
+        container.appendChild(p);
+        stateParks.data.forEach(park => {
+          const card = document.createElement('div');
+          card.setAttribute('class', 'card');
 
-var request = new XMLHttpRequest();
-request.open('GET', 'https://developer.nps.gov/api/v1/visitorcenters?&api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS', true);
-request.onload = function () {
+          const h1 = document.createElement('h1');
+          h1.textContent = park.name;
 
-  // Begin accessing JSON data here
-  var data = JSON.parse(this.response);
-  if (request.status == 200) {
-    data.data.forEach(center => {
-      const card = document.createElement('div');
-      card.setAttribute('class', 'card');
+          const p = document.createElement('p');
+          park.description = park.description.substring(0, 500);
+          p.textContent = `${park.description}`;
 
-      const h1 = document.createElement('h1');
-      h1.textContent = center.name;
-
-      const p = document.createElement('p');
-      center.description = center.description.substring(0, 500);
-      p.textContent = `${center.description}`;
-
-      container.appendChild(card);
-      card.appendChild(h1);
-      card.appendChild(p);
-    });
-  } else {
-    const errorMessage = document.createElement('marquee');
-    errorMessage.textContent = `Gah, it's not working!`;
-    app.appendChild(errorMessage);
+          container.appendChild(card);
+          card.appendChild(h1);
+          card.appendChild(p);
+          /*const p = document.createElement("p");
+          p.textContent = park.name;
+          container.appendChild(p);*/
+        });
+      } else {
+        alert("Invalid search.");
+      }
+    }
+    request.send();
   }
-}
-
-request.send();
