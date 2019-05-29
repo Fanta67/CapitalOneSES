@@ -1,10 +1,10 @@
 //TODO: MAKE THIS A SEPARATE SCRIPT/PAGE SO IT RELOADS WITH NEW SUBMISSION
-  function submitSearchRequest() {
-    var state = document.getElementById("state").value;
-    container = document.getElementById('c1');
+  function submitSearchRequest(state, searchType) {
+    container = document.getElementById('c2');
 
     var request = new XMLHttpRequest();
-    var link = "https://developer.nps.gov/api/v1/parks";
+    var link = "https://developer.nps.gov/api/v1/";
+    link += searchType;
     link += '?stateCode=' + state;
     link += '&limit=50';
     link += '&api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
@@ -15,7 +15,11 @@
       if (request.status == 200) {
         const p = document.createElement('p');
         var total = stateParks.total;
-        p.textContent = 'Results 1-' + total + ' below.'
+        if (total == 0) {
+          p.textcontent = 'No results found.';
+        } else {
+          p.textContent = 'Results 1-' + total + ' below.';
+        }
         p.align = "center";
         container.appendChild(p);
         stateParks.data.forEach(park => {
@@ -25,13 +29,14 @@
           const h1 = document.createElement('h1');
           h1.textContent = park.name;
 
-          const p = document.createElement('p');
-          park.description = park.description.substring(0, 500);
-          p.textContent = `${park.description}`;
-
           container.appendChild(card);
           card.appendChild(h1);
-          card.appendChild(p);
+          if (park.description.length > 0) {
+            const p = document.createElement('p');
+            park.description = park.description.substring(0, 500);
+            p.textContent = `${park.description}`;
+            card.appendChild(p);
+          }
           /*const p = document.createElement("p");
           p.textContent = park.name;
           container.appendChild(p);*/

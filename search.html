@@ -41,20 +41,28 @@
         <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
       </nav>
 
-      <div id = "c1" class="container-fluid">
+      <div id="c1" class="container-fluid">
         <h2 class="mt-4 title">Search by State</h2>
         <select id = "state" name = "state" style = "width: 150px; position: absolute">
-          <option value = "" selected disabled hidden>Choose here</option>
+          <option value = "" selected disabled hidden>Choose State</option>
           <script src="stateScript.js"></script>
         </select>
         <br></br>
-        <button type = "submit" name = "submit" style = "width: 150px" onclick = location.href="https://fanta67.github.io/CapitalOneSES/results.html">Search</button>
+        <button type = "submit" name = "submit" style = "width: 150px" onclick = submit()>Search</button>
         <br></br>
       </div>
     </div>
     <!-- /#page-content-wrapper -->
   </div>
   <!-- /#wrapper -->
+
+  <script>
+    function submit() {
+      var state = document.getElementById("state").value;
+      if(state == "") return;
+      location.href="results.html?state=" + state;
+    }
+  </script>
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
