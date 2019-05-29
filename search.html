@@ -26,7 +26,7 @@
 
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">National Park Service Information Kiosk</div>
+      <div class="sidebar-heading">NPS Info Kiosk</div>
       <div class="list-group list-group-flush">
         <a href="index.html" class="list-group-item list-group-item-action bg-light"><strong>Home</strong></a>
         <a href="search.html" class="list-group-item list-group-item-action bg-light">Search</a>
@@ -38,7 +38,7 @@
     <div id="page-content-wrapper">
 
       <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+        <button class="btn btn-primary" id="menu-toggle">Menu</button>
       </nav>
 
       <div id="c1" class="container-fluid">
@@ -66,7 +66,8 @@
       var state = document.getElementById("state").value;
       var keywords = document.getElementById("keywords").value.split(" ");
       if(state == "" && keywords == "") return;
-      var str = "results.html?";
+      var str = "results.html";
+      str += "?";
       if (state != "") {
         str += "state=" + state + "&";
       }
