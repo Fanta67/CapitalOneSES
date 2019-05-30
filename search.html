@@ -32,8 +32,6 @@
         <a href="search.html" class="list-group-item list-group-item-action bg-light">Search</a>
       </div>
     </div>
-    <!-- /#sidebar-wrapper -->
-
     <!-- Page Content -->
     <div id="page-content-wrapper">
 
@@ -42,16 +40,22 @@
       </nav>
 
       <div id="c1" class="container-fluid">
-        <h2 class="mt-4 title">Search by State</h2>
-        <select id="state" name="state" style="width: 150px; position: absolute">
+        <h2 class="mt-4 title">Filter by State</h2>
+        <select id="state" name="state" style="width: 175px; position: absolute">
           <option value="" selected disabled hidden>Choose State</option>
           <script src="stateScript.js"></script>
         </select>
         <br></br>
-        <h2 class="mt-4 title">Search by Keywords (space delimited)</h2>
-        <input id="keywords" type="text" placeholder="Search keyword(s)" style="width: 150px" value="">
+        <h2 class="mt-4 title">Filter by Keywords (space delimited)</h2>
+        <input id="keywords" type="text" placeholder="Search keyword(s)" style="width: 175px" value="">
         <br></br>
-        <button type = "submit" name = "submit" style = "width: 150px" onclick = submit()>Find parks</button>
+        <h2 class="mt-4 title">Filter by Designation</h2>
+        <select id="designation" name="designation" style="width: 175px; position: absolute">
+          <option value="" selected disabled hidden>Choose Designation</option>
+          <script src="designationScript.js"></script>
+        </select>
+        <br></br>
+        <button type = "submit" name = "submit" style = "width: 175px" onclick = submit()>Find parks</button>
         <br></br>
 
 
@@ -65,7 +69,8 @@
     function submit() {
       var state = document.getElementById("state").value;
       var keywords = document.getElementById("keywords").value.split(" ");
-      if(state == "" && keywords == "") return;
+      var designation = document.getElementById("designation").value;
+      if(state == "" && keywords == "" && designation == "") return;
       var str = "results.html";
       str += "?";
       if (state != "") {
@@ -76,6 +81,10 @@
           str += "keywords=" + keywords[i] + "&";
         }
       }
+      if (designation != "") {
+        str += "designation=" + designation;
+      }
+      alert(str);
       location.href = str;
     }
   </script>
