@@ -1,11 +1,12 @@
 Battlefield
-Ecological Preserve
 Heritage Area
 Historic Site
-Military Park
+Lakeshore
 Monument
 Preserve
 Park
+Parkway
 Recreation Area
-Scenic River
+Riverway
 Seashore
+Trail
