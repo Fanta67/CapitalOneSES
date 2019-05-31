@@ -68,7 +68,7 @@
   <script>
     function submit() {
       var state = document.getElementById("state").value;
-      var keywords = document.getElementById("keywords").value.split(",");
+      var keywords = document.getElementById("keywords").value.split(", ");
       var designation = document.getElementById("designation").value;
       if(state == "" && keywords == "" && designation == "") return;
       var str = "results.html";
@@ -84,7 +84,6 @@
       if (designation != "") {
         str += "designation=" + designation;
       }
-      alert(str);
       location.href = str;
     }
   </script>

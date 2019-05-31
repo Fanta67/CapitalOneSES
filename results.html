@@ -47,8 +47,11 @@
       <div id="c2" class="container-fluid">
         <h2 class="mt-4">Search Results</h2>
         <script type="text/javascript">
-            var state=parent.document.URL.substring(parent.document.URL.indexOf('?') + 7, parent.document.URL.length);
-            submitSearchRequest(state, "parks");
+            var url = new URL(window.location.href);
+            var state = url.searchParams.get("state");
+            var keywords = url.searchParams.getAll("keywords");
+            var designation = url.searchParams.get("designation");
+            submitSearchRequest(state, keywords, designation);
         </script>
       </div>
     </div>

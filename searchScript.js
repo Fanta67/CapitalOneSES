@@ -1,16 +1,16 @@
-function submitSearchRequest() {
-  var state = document.getElementById("state").value;
+function submitSearchRequest(state, keywords, designation) {
   var request = new XMLHttpRequest();
-  var link = "https://developer.nps.gov/api/v1/visitorcenters";
+  var link = "https://developer.nps.gov/api/v1/parks";
   link += '?stateCode=' + state;
-  link += '&limit=50';
+  for (var i = 0; i < keywords.length; i++) {
+    link += '&q=' + keywords[i];
+  }
+  link += '&q=' + designation;
   link += '&api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
   request.open('GET', link, true);
   request.onreadystatechange = function () {
-    alert("2");
     // Begin accessing JSON data here
     var stateParks = JSON.parse(request.responseText);
-    alert("Hello wtf");
     if (request.status == 200) {
       stateParks.data.forEach(center => {
         const card = document.createElement('div');

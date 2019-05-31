@@ -1,13 +1,24 @@
 //TODO: MAKE THIS A SEPARATE SCRIPT/PAGE SO IT RELOADS WITH NEW SUBMISSION
-  function submitSearchRequest(state, searchType) {
+  function submitSearchRequest(state, keywords, designation) {
     container = document.getElementById('c2');
 
     var request = new XMLHttpRequest();
-    var link = "https://developer.nps.gov/api/v1/";
-    link += searchType;
-    link += '?stateCode=' + state;
-    link += '&limit=50';
-    link += '&api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
+    var link = "https://developer.nps.gov/api/v1/parks";
+    link += '?';
+    if (state) link += 'stateCode=' + state + '&';
+    if (designation || keywords.length != 0) link += 'q=';
+    if (keywords.length != 0) {
+      for (var i = 0; i < keywords.length; i++) {
+        keywords[i] = keywords[i].split(' ').join('%20');
+        if (i != 0) link += '%2C';
+        link += keywords[i];
+      }
+      if (designation) link += '%2C';
+      else link += '&';
+    }
+    if (designation) link += designation + '&';
+    link += 'api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
+    alert(link);
     request.open('GET', link, true);
 
     request.onload = function () {
@@ -15,8 +26,9 @@
       if (request.status == 200) {
         const p = document.createElement('p');
         var total = stateParks.total;
+        alert(total);
         if (total == 0) {
-          p.textcontent = 'No results found.';
+          p.textContent = 'No results found.';
         } else {
           p.textContent = 'Results 1-' + total + ' below.';
         }
@@ -37,9 +49,6 @@
             p.textContent = `${park.description}`;
             card.appendChild(p);
           }
-          /*const p = document.createElement("p");
-          p.textContent = park.name;
-          container.appendChild(p);*/
         });
       } else {
         alert("Invalid search.");
