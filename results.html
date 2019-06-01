@@ -45,14 +45,11 @@
       </nav>
 
       <div id="c2" class="container-fluid">
-        <h2 class="mt-4">Search Results</h2>
-        <script type="text/javascript">
-            var url = new URL(window.location.href);
-            var state = url.searchParams.get("state");
-            var keywords = url.searchParams.getAll("keywords");
-            var designation = url.searchParams.get("designation");
-            submitSearchRequest(state, keywords, designation);
-        </script>
+        <h2 class="mt-4" align="center">Search Results</h2>
+        <div id="loading">
+            <p align="center">loading...</p>
+        </div>
+        <script>getResults(); window.setTimeout(removeTemp, 3000);</script>
       </div>
     </div>
     <!-- /#page-content-wrapper -->

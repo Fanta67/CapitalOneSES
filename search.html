@@ -16,6 +16,8 @@
   <!-- Custom styles for this template -->
   <link href="css/simple-sidebar.css" rel="stylesheet">
 
+  <script src="scripts.js"></script>
+
   <link href="style.css" rel="stylesheet">
 
 </head>
@@ -57,36 +59,12 @@
         <br></br>
         <button type = "submit" name = "submit" style = "width: 175px" onclick = submit()>Find parks</button>
         <br></br>
-
-
+        <span>(or leave fields empty to browse all parks!)</span>
       </div>
     </div>
     <!-- /#page-content-wrapper -->
   </div>
   <!-- /#wrapper -->
-
-  <script>
-    function submit() {
-      var state = document.getElementById("state").value;
-      var keywords = document.getElementById("keywords").value.split(", ");
-      var designation = document.getElementById("designation").value;
-      if(state == "" && keywords == "" && designation == "") return;
-      var str = "results.html";
-      str += "?";
-      if (state != "") {
-        str += "state=" + state + "&";
-      }
-      if (keywords != "") {
-        for (var i = 0; i < keywords.length; i++) {
-          str += "keywords=" + keywords[i] + "&";
-        }
-      }
-      if (designation != "") {
-        str += "designation=" + designation;
-      }
-      location.href = str;
-    }
-  </script>
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>

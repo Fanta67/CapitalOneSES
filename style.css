@@ -2,6 +2,14 @@
   box-sizing: border-box
 }
 
+a {
+  color: #FFFFFF;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
