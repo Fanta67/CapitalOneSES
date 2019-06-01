@@ -37,7 +37,7 @@ function submitSearchRequest(state, keywords, designation) {
         const h1 = document.createElement('h1');
         const a = document.createElement('a');
         a.href = "detail-view.html";
-        a.href += "&park=" + park.parkCode;
+        a.href += "?park=" + park.parkCode;
         a.innerHTML = park.name;
         h1.appendChild(a);
 
