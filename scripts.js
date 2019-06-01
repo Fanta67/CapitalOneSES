@@ -17,7 +17,6 @@
       link += '&'
     }
     link += 'api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
-    alert(link);
     request.open('GET', link, true);
 
     request.onload = function () {
