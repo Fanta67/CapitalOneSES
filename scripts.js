@@ -53,6 +53,8 @@ function submitSearchRequest(state, keywords, designation) {
     } else {
       alert("Invalid search.");
     }
+    var temp = document.getElementById("loading");
+    temp.parentNode.removeChild(temp);
   }
   request.send();
 }
@@ -65,11 +67,6 @@ function getResults() {
   var keywords = url.searchParams.getAll("keywords");
   var designation = url.searchParams.get("designation");
   submitSearchRequest(state, keywords, designation);
-}
-
-function removeTemp() {
-  var temp = document.getElementById("loading");
-  temp.parentNode.removeChild(temp);
 }
 
 function submit() {
