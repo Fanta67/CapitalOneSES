@@ -6,17 +6,16 @@
     var link = "https://developer.nps.gov/api/v1/parks";
     link += '?';
     if (state) link += 'stateCode=' + state + '&';
-    if (designation || keywords.length != 0) link += 'q=';
-    if (keywords.length != 0) {
-      for (var i = 0; i < keywords.length; i++) {
-        keywords[i] = keywords[i].split(' ').join('%20');
-        if (i != 0) link += '%2C';
-        link += keywords[i];
+    if (designation || keywords.length != 0) {
+      link += 'q=';
+      if (keywords.length != 0) {
+        keywords = keywords.join('%2C%20').split(' ').join('%20');
+        link += keywords;
+        if (designation) link += '%2C%20';
       }
-      if (designation) link += '%2C';
-      else link += '&';
+      if (designation) link += designation;
+      link += '&'
     }
-    if (designation) link += designation + '&';
     link += 'api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
     alert(link);
     request.open('GET', link, true);
@@ -26,11 +25,10 @@
       if (request.status == 200) {
         const p = document.createElement('p');
         var total = stateParks.total;
-        alert(total);
         if (total == 0) {
           p.textContent = 'No results found.';
         } else {
-          p.textContent = 'Results 1-' + total + ' below.';
+          p.textContent = 'Results 1-' + total + ' below. Click to see more details.';
         }
         p.align = "center";
         container.appendChild(p);
