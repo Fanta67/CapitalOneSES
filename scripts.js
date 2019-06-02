@@ -1,5 +1,5 @@
 function submitSearchRequest(state, keywords, designation) {
-  container = document.getElementById('c2');
+  var container = document.getElementById('c2');
 
   var request = new XMLHttpRequest();
   var link = "https://developer.nps.gov/api/v1/parks";
@@ -38,17 +38,15 @@ function submitSearchRequest(state, keywords, designation) {
         const a = document.createElement('a');
         a.href = "detail-view.html";
         a.href += "?park=" + park.parkCode;
+        a.href += "&name=" + park.name;
         a.innerHTML = park.name;
         h1.appendChild(a);
 
         container.appendChild(card);
         card.appendChild(h1);
-        if (park.description.length > 0) {
-          const p = document.createElement('p');
-          park.description = park.description.substring(0, 500);
-          p.textContent = `${park.description}`;
-          card.appendChild(p);
-        }
+        const p = document.createElement('p');
+        p.textContent = `${park.description}`;
+        card.appendChild(p);
       });
     } else {
       alert("Invalid search.");
@@ -59,7 +57,57 @@ function submitSearchRequest(state, keywords, designation) {
   request.send();
 }
 
-function getDetails() {}
+function getDetails(search) {
+  var url = new URL(window.location.href);
+  var state = url.searchParams.get("park");
+  var container = document.getElementById('c2');
+  var request = new XMLHttpRequest();
+  var searchTerm;
+  if (search == "visitorcenters") searchTerm = "Visitor Centers";
+  else if (search == "campgrounds") searchTerm = "Campgrounds"
+  var link = "https://developer.nps.gov/api/v1/";
+  link += search;
+  link += '?parkCode=' + state + '&api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
+  request.open('GET', link, true);
+  request.onload = function () {
+    var response = JSON.parse(request.responseText);
+    if (request.status == 200) {
+      const h3 = document.createElement('h3');
+      h3.textContent = searchTerm;
+      container.appendChild(h3);
+      if (response.total > 0) {
+        response.data.forEach(elem => {
+          const card = document.createElement('div');
+          card.setAttribute('class', 'card');
+
+          const h1 = document.createElement('h1');
+          h1.textContent = elem.name;
+
+          container.appendChild(card);
+          card.appendChild(h1);
+          const p = document.createElement('p');
+          p.textContent = `${elem.description}`;
+          card.appendChild(p);
+        });
+      } else {
+        const p = document.createElement('p');
+        p.align = "center";
+        p.textContent = "No " + searchTerm.toLowerCase() + " found";
+        container.appendChild(p);
+      }
+      container.appendChild(document.createElement('br'));
+    } else {
+      alert("Invalid search.");
+    }
+  }
+  request.send();
+}
+
+function putHeader() {
+  var url = new URL(window.location.href);
+  var name = url.searchParams.get("name");
+  document.getElementById("header").textContent += name + '!';
+}
 
 function getResults() {
   var url = new URL(window.location.href);
