@@ -60,7 +60,7 @@ function submitSearchRequest(state, keywords, designation) {
 function getDetails(search) {
   var url = new URL(window.location.href);
   var state = url.searchParams.get("park");
-  var container = document.getElementById('c2');
+  var container = document.getElementById(search);
   var request = new XMLHttpRequest();
   var searchTerm;
   if (search == "visitorcenters") searchTerm = "Visitor Centers";
