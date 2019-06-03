@@ -64,7 +64,12 @@ function getDetails(search) {
   var request = new XMLHttpRequest();
   var searchTerm;
   if (search == "visitorcenters") searchTerm = "Visitor Centers";
-  else if (search == "campgrounds") searchTerm = "Campgrounds"
+  else if (search == "campgrounds") searchTerm = "Campgrounds";
+  else if (search == "alerts") searchTerm = "Alerts";
+  else if (search == "articles") searchTerm = "Articles";
+  else if (search == "events") searchTerm = "Events";
+  else if (search == "newsreleases") searchTerm = "News Releases";
+
   var link = "https://developer.nps.gov/api/v1/";
   link += search;
   link += '?parkCode=' + state + '&api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
@@ -72,21 +77,42 @@ function getDetails(search) {
   request.onload = function () {
     var response = JSON.parse(request.responseText);
     if (request.status == 200) {
-      const h3 = document.createElement('h3');
-      h3.textContent = searchTerm;
-      container.appendChild(h3);
+      const h4 = document.createElement('h4');
+      h4.textContent = searchTerm;
+      container.appendChild(h4);
       if (response.total > 0) {
         response.data.forEach(elem => {
           const card = document.createElement('div');
-          card.setAttribute('class', 'card');
+          card.className = 'card';
 
           const h1 = document.createElement('h1');
-          h1.textContent = elem.name;
+          if (search == "alerts" || search == "articles" || search == "events" || search == "newsreleases") {
+            h1.textContent = elem.title;
+          } else {
+            h1.textContent = elem.name;
+          }
 
           container.appendChild(card);
           card.appendChild(h1);
           const p = document.createElement('p');
-          p.textContent = `${elem.description}`;
+          if (search == "articles" || search == "newsreleases") {
+            if (search == "newsreleases") {
+              p.textContent = `${elem.abstract}`;
+            } else {
+              p.textContent = `${elem.listingdescription}`;
+            }
+            const span = document.createElement('span');
+            span.textContent = ' Read more ';
+            const a = document.createElement('a');
+            a.href = `${elem.url}`;
+            a.textContent = 'here.';
+            span.appendChild(a);
+            p.appendChild(span);
+          } else if (search == "events") {
+            p.innerHTML = `${elem.description}`
+          }else {
+            p.textContent = `${elem.description}`;
+          }
           card.appendChild(p);
         });
       } else {

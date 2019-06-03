@@ -47,10 +47,36 @@
       <div id="c2" class="container-fluid">
         <h2 class="mt-4 title" id="header">Welcome to </h2>
         <script>putHeader();</script>
+        <div id="menu">
+            <h3>Jump to:</h3>
+            <ol>
+              <li><a href="#visitorcenters">Visitor Centers</a></li>
+              <li><a href="#campgrounds">Campgrounds</a></li>
+              <li><a href="#alerts">Alerts</a></li>
+              <li><a href="#articles">Articles</a></li>
+              <li><a href="#events">Events</a></li>
+              <li><a href="#newsreleases">News Releases</a></li>
+            </ol>
+        </div>
+        <h3>Nearby Locations:</h3>
         <br></br>
         <div id="visitorcenters" class-"container-fluid"></div>
         <div id="campgrounds" class-"container-fluid"></div>
-        <script>getDetails("visitorcenters"); getDetails("campgrounds");</script>
+        <h3>News and More:</h3>
+        <br></br>
+        <div id="alerts" class-"container-fluid"></div>
+        <div id="articles" class-"container-fluid"></div>
+        <div id="events" class-"container-fluid"></div>
+        <div id="newsreleases" class-"container-fluid"></div>
+        <script>
+          getDetails("visitorcenters");
+          getDetails("campgrounds");
+          getDetails("alerts");
+          getDetails("articles");
+          getDetails("events");
+          getDetails("newsreleases");
+
+        </script>
 
       </div>
     </div>

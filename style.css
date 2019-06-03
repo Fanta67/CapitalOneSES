@@ -2,10 +2,6 @@
   box-sizing: border-box
 }
 
-a {
-  color: #FFFFFF;
-}
-
 a:hover {
   text-decoration: none;
 }
