@@ -69,7 +69,9 @@ function getDetails(search) {
   else if (search == "articles") searchTerm = "Articles";
   else if (search == "events") searchTerm = "Events";
   else if (search == "newsreleases") searchTerm = "News Releases";
-
+  else if (search == "lessonplans") searchTerm = "Lesson Plans";
+  else if (search == "people") searchTerm = "People";
+  else if (search == "places") searchTerm = "Places";
   var link = "https://developer.nps.gov/api/v1/";
   link += search;
   link += '?parkCode=' + state + '&api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
@@ -86,18 +88,20 @@ function getDetails(search) {
           card.className = 'card';
 
           const h1 = document.createElement('h1');
-          if (search == "alerts" || search == "articles" || search == "events" || search == "newsreleases") {
-            h1.textContent = elem.title;
-          } else {
+          if (search == "visitorcenters" || search == "campgrounds") {
             h1.textContent = elem.name;
+          } else {
+            h1.textContent = elem.title;
           }
 
           container.appendChild(card);
           card.appendChild(h1);
           const p = document.createElement('p');
-          if (search == "articles" || search == "newsreleases") {
+          if (search == "articles" || search == "newsreleases" || search == "lessonplans" || search == "people" || search == "places") {
             if (search == "newsreleases") {
               p.textContent = `${elem.abstract}`;
+            } else if (search == "lessonplans"){
+              p.textContent = `${elem.questionobjective}`;
             } else {
               p.textContent = `${elem.listingdescription}`;
             }
@@ -109,8 +113,13 @@ function getDetails(search) {
             span.appendChild(a);
             p.appendChild(span);
           } else if (search == "events") {
-            p.innerHTML = `${elem.description}`
-          }else {
+            p.innerHTML = `${elem.description}`;
+            const p2 = document.createElement('p');
+            p2.textContent = ' Starts: ' + elem.datestart + ' at ' + elem.times[0].timestart;
+            p2.align = "center";
+            p2.style = "font-weight: bold";
+            p.appendChild(p2);
+          } else {
             p.textContent = `${elem.description}`;
           }
           card.appendChild(p);
@@ -133,6 +142,18 @@ function putHeader() {
   var url = new URL(window.location.href);
   var name = url.searchParams.get("name");
   document.getElementById("header").textContent += name + '!';
+}
+
+function loadDetails() {
+  getDetails("visitorcenters");
+  getDetails("campgrounds");
+  getDetails("alerts");
+  getDetails("articles");
+  getDetails("events");
+  getDetails("newsreleases");
+  getDetails("lessonplans");
+  getDetails("people");
+  getDetails("places");
 }
 
 function getResults() {
