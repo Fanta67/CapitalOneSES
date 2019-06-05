@@ -145,12 +145,12 @@ function putHeader() {
   var url = new URL(window.location.href);
   var name = url.searchParams.get("name");
   document.getElementById("header").textContent += name + '!';
-  var timeleft = 10;
+  var timeleft = 9;
   var downloadTimer = setInterval(function(){
     var countdown = document.getElementById("countdown");
     countdown.textContent = "Please allow up to " + timeleft + " more seconds for page content to load.";
     timeleft -= 1;
-    if(timeleft <= -1){
+    if(timeleft <= 0){
       clearInterval(downloadTimer);
       countdown.textContent = "Done loading! :)"
     }
