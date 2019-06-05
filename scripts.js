@@ -1,3 +1,4 @@
+//Retrieve search results
 function submitSearchRequest(state, keywords, designation) {
   var container = document.getElementById('c2');
 
@@ -57,6 +58,7 @@ function submitSearchRequest(state, keywords, designation) {
   request.send();
 }
 
+//Retrieve detailed information on a single park
 function getDetails(search) {
   var url = new URL(window.location.href);
   var state = url.searchParams.get("park");
@@ -97,21 +99,8 @@ function getDetails(search) {
           container.appendChild(card);
           card.appendChild(h1);
           const p = document.createElement('p');
-          if (search == "articles" || search == "newsreleases" || search == "lessonplans" || search == "people" || search == "places") {
-            if (search == "newsreleases") {
-              p.textContent = `${elem.abstract}`;
-            } else if (search == "lessonplans"){
-              p.textContent = `${elem.questionobjective}`;
-            } else {
-              p.textContent = `${elem.listingdescription}`;
-            }
-            const span = document.createElement('span');
-            span.textContent = ' Read more ';
-            const a = document.createElement('a');
-            a.href = `${elem.url}`;
-            a.textContent = 'here.';
-            span.appendChild(a);
-            p.appendChild(span);
+          if (search == "visitorcenters" || search == "campgrounds" || search == "alerts") {
+            p.textContent = `${elem.description}`;
           } else if (search == "events") {
             p.innerHTML = `${elem.description}`;
             const p2 = document.createElement('p');
@@ -120,7 +109,20 @@ function getDetails(search) {
             p2.style = "font-weight: bold";
             p.appendChild(p2);
           } else {
-            p.textContent = `${elem.description}`;
+              if (search == "newsreleases") {
+                p.textContent = `${elem.abstract}`;
+              } else if (search == "lessonplans"){
+                p.textContent = `${elem.questionobjective}`;
+              } else {
+                p.textContent = `${elem.listingdescription}`;
+              }
+              const span = document.createElement('span');
+              span.textContent = ' Read more ';
+              const a = document.createElement('a');
+              a.href = `${elem.url}`;
+              a.textContent = 'here.';
+              span.appendChild(a);
+              p.appendChild(span);
           }
           card.appendChild(p);
         });
@@ -138,12 +140,24 @@ function getDetails(search) {
   request.send();
 }
 
+//Get park name from url, put countdown timer to wait for API requests
 function putHeader() {
   var url = new URL(window.location.href);
   var name = url.searchParams.get("name");
   document.getElementById("header").textContent += name + '!';
+  var timeleft = 10;
+  var downloadTimer = setInterval(function(){
+    var countdown = document.getElementById("countdown");
+    countdown.textContent = "Please allow up to " + timeleft + " more seconds for page content to load.";
+    timeleft -= 1;
+    if(timeleft <= -1){
+      clearInterval(downloadTimer);
+      countdown.textContent = "Done loading! :)"
+    }
+  }, 1000);
 }
 
+//Get all details needed
 function loadDetails() {
   getDetails("visitorcenters");
   getDetails("campgrounds");
@@ -156,6 +170,7 @@ function loadDetails() {
   getDetails("places");
 }
 
+//Get search parameters from url
 function getResults() {
   var url = new URL(window.location.href);
   var state = url.searchParams.get("state");
@@ -164,6 +179,7 @@ function getResults() {
   submitSearchRequest(state, keywords, designation);
 }
 
+//Pass filter parameters to url of results page
 function submit() {
   var state = document.getElementById("state").value;
   var keywords = document.getElementById("keywords").value.split(", ");
