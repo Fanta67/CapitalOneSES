@@ -2,6 +2,7 @@
 function submitSearchRequest(state, keywords, designation) {
   var container = document.getElementById('c2');
 
+  //submit search request to API
   var request = new XMLHttpRequest();
   var link = "https://developer.nps.gov/api/v1/parks";
   link += '?';
@@ -19,6 +20,7 @@ function submitSearchRequest(state, keywords, designation) {
   link += 'api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
   request.open('GET', link, true);
 
+  //load results
   request.onload = function () {
     var stateParks = JSON.parse(request.responseText);
     if (request.status == 200) {
@@ -31,6 +33,7 @@ function submitSearchRequest(state, keywords, designation) {
       }
       p.align = "center";
       container.appendChild(p);
+      //create cards for each park found
       stateParks.data.forEach(park => {
         const card = document.createElement('div');
         card.setAttribute('class', 'card');
@@ -52,6 +55,7 @@ function submitSearchRequest(state, keywords, designation) {
     } else {
       alert("Invalid search.");
     }
+
     var temp = document.getElementById("loading");
     temp.parentNode.removeChild(temp);
   }
@@ -64,6 +68,8 @@ function getDetails(search) {
   var state = url.searchParams.get("park");
   var container = document.getElementById(search);
   var request = new XMLHttpRequest();
+
+  //get search term with proper caps and spaces
   var searchTerm;
   if (search == "visitorcenters") searchTerm = "Visitor Centers";
   else if (search == "campgrounds") searchTerm = "Campgrounds";
@@ -74,10 +80,14 @@ function getDetails(search) {
   else if (search == "lessonplans") searchTerm = "Lesson Plans";
   else if (search == "people") searchTerm = "People";
   else if (search == "places") searchTerm = "Places";
+
+  //submit search request to API
   var link = "https://developer.nps.gov/api/v1/";
   link += search;
   link += '?parkCode=' + state + '&api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
   request.open('GET', link, true);
+
+  //load results for each search
   request.onload = function () {
     var response = JSON.parse(request.responseText);
     if (request.status == 200) {
@@ -99,6 +109,8 @@ function getDetails(search) {
           container.appendChild(card);
           card.appendChild(h1);
           const p = document.createElement('p');
+
+          //create cards differently based on search parameter and JSON response format
           if (search == "visitorcenters" || search == "campgrounds" || search == "alerts") {
             p.textContent = `${elem.description}`;
           } else if (search == "events") {
@@ -127,6 +139,7 @@ function getDetails(search) {
           card.appendChild(p);
         });
       } else {
+        //if no info found for search for this park
         const p = document.createElement('p');
         p.align = "center";
         p.textContent = "No " + searchTerm.toLowerCase() + " found";
@@ -145,6 +158,9 @@ function putHeader() {
   var url = new URL(window.location.href);
   var name = url.searchParams.get("name");
   document.getElementById("header").textContent += name + '!';
+  document.title = name + " - National Park Service Information Kiosk"
+
+  //count down
   var timeleft = 9;
   var downloadTimer = setInterval(function(){
     var countdown = document.getElementById("countdown");
