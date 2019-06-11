@@ -56,7 +56,7 @@ function submitSearchRequest(state, keywords, designation) {
       alert("Invalid search.");
     }
 
-    var temp = document.getElementById("loading");
+    var temp = document.getElementById('loading');
     temp.parentNode.removeChild(temp);
   }
   request.send();
@@ -156,18 +156,18 @@ function getDetails(search) {
 //Put image of park
 function putImage() {
   var request = new XMLHttpRequest();
-  var container = document.getElementById("images");
+  var container = document.getElementById('images');
   var url = new URL(window.location.href);
   var park = url.searchParams.get("park");
   var link = "https://developer.nps.gov/api/v1/parks";
   link += '?parkCode=' + park + '&fields=images&api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
+  //Get images for the park
   request.open('GET', link, true);
   request.onload = function () {
     var response = JSON.parse(request.responseText);
     if (request.status == 200) {
       if (response.total > 0) {
         response.data.forEach(elem => {
-          //Get images and put them in the div
           elem.images.forEach(image => {
             const img = document.createElement('img');
             img.className = "park";
@@ -181,6 +181,21 @@ function putImage() {
     }
   }
   request.send();
+}
+
+//Provide link for more Information
+function putLink() {
+  var url = new URL(window.location.href);
+  var park = url.searchParams.get("park");
+  var container = document.getElementById('moreinfo');
+  const a = document.createElement('a');
+  const span = document.createElement('span');
+  var url = "https://nps.gov/" + park + "/index.htm";
+  span.textContent = "For more information, visit ";
+  a.href = url;
+  a.textContent = url + ".";
+  span.appendChild(a);
+  container.appendChild(span);
 }
 
 //Get park name from url, put countdown timer to wait for API requests

@@ -2,6 +2,10 @@
   box-sizing: border-box
 }
 
+body {
+  padding-bottom: 40px;
+}
+
 h1 {
   text-align: center;
   padding: 1.5rem 2.5rem;
@@ -42,8 +46,8 @@ a:hover {
 }
 
 img.park {
-  width:500px;
-  height:400px;
+  width:600px;
+  height:500px;
 }
 
 img.icon {
