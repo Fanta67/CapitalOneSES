@@ -153,6 +153,36 @@ function getDetails(search) {
   request.send();
 }
 
+//Put image of park
+function putImage() {
+  var request = new XMLHttpRequest();
+  var container = document.getElementById("images");
+  var url = new URL(window.location.href);
+  var park = url.searchParams.get("park");
+  var link = "https://developer.nps.gov/api/v1/parks";
+  link += '?parkCode=' + park + '&fields=images&api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
+  request.open('GET', link, true);
+  request.onload = function () {
+    var response = JSON.parse(request.responseText);
+    if (request.status == 200) {
+      if (response.total > 0) {
+        response.data.forEach(elem => {
+          //Get images and put them in the div
+          elem.images.forEach(image => {
+            const img = document.createElement('img');
+            img.className = "park";
+            img.src = image.url;
+            container.appendChild(img);
+          });
+        });
+      }
+    } else {
+      alert("Invalid search.");
+    }
+  }
+  request.send();
+}
+
 //Get park name from url, put countdown timer to wait for API requests
 function putHeader() {
   var url = new URL(window.location.href);
@@ -171,36 +201,6 @@ function putHeader() {
       countdown.textContent = "Done loading! :)"
     }
   }, 1000);
-}
-
-//Put image of park
-function putImage() {
-  var request = new XMLHttpRequest();
-  var container = document.getElementById("images");
-  var url = new URL(window.location.href);
-  var park = url.searchParams.get("park");
-  var link = "https://developer.nps.gov/api/v1/parks";
-  link += '?parkCode=' + park + '&fields=images&api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
-  request.open('GET', link, true);
-  request.onload = function () {
-    var response = JSON.parse(request.responseText);
-    if (request.status == 200) {
-      if (response.total > 0) {
-        response.data.forEach(elem => {
-          //Get images and put them in the div
-          elem.images.forEach(image => {
-            const img = document.createElement('img');
-            img.class = "park";
-            img.src = image.url;
-            container.appendChild(img);
-          });
-        });
-      }
-    } else {
-      alert("Invalid search.");
-    }
-  }
-  request.send();
 }
 
 //Get all details needed
