@@ -166,7 +166,7 @@ function putHeader() {
     var countdown = document.getElementById("countdown");
     countdown.textContent = "Please allow up to " + timeleft + " more seconds for page content to load.";
     timeleft -= 1;
-    if(timeleft <= 0){
+    if(timeleft < 0){
       clearInterval(downloadTimer);
       countdown.textContent = "Done loading! :)"
     }
@@ -176,18 +176,18 @@ function putHeader() {
 //Put image of park
 function putImage() {
   var request = new XMLHttpRequest();
-  var container = document.getElementById("imgcontainer");
+  var container = document.getElementById("images");
   var url = new URL(window.location.href);
   var park = url.searchParams.get("park");
   var link = "https://developer.nps.gov/api/v1/parks";
   link += '?parkCode=' + park + '&fields=images&api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
-  alert(link);
   request.open('GET', link, true);
   request.onload = function () {
     var response = JSON.parse(request.responseText);
     if (request.status == 200) {
       if (response.total > 0) {
         response.data.forEach(elem => {
+          //Get images and put them in the div
           elem.images.forEach(image => {
             const img = document.createElement('img');
             img.class = "park";
@@ -200,6 +200,7 @@ function putImage() {
       alert("Invalid search.");
     }
   }
+  request.send();
 }
 
 //Get all details needed
