@@ -41,6 +41,11 @@ a:hover {
   margin: 0 auto;
 }
 
+img.park {
+  width:600px;
+  height:500px;
+}
+
 img.icon {
   width:20px;
   height:20px;

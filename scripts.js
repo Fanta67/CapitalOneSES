@@ -65,7 +65,7 @@ function submitSearchRequest(state, keywords, designation) {
 //Retrieve detailed information on a single park
 function getDetails(search) {
   var url = new URL(window.location.href);
-  var state = url.searchParams.get("park");
+  var park = url.searchParams.get("park");
   var container = document.getElementById(search);
   var request = new XMLHttpRequest();
 
@@ -84,7 +84,7 @@ function getDetails(search) {
   //submit search request to API
   var link = "https://developer.nps.gov/api/v1/";
   link += search;
-  link += '?parkCode=' + state + '&api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
+  link += '?parkCode=' + park + '&api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
   request.open('GET', link, true);
 
   //load results for each search
@@ -171,6 +171,35 @@ function putHeader() {
       countdown.textContent = "Done loading! :)"
     }
   }, 1000);
+}
+
+//Put image of park
+function putImage() {
+  var request = new XMLHttpRequest();
+  var container = document.getElementById("imgcontainer");
+  var url = new URL(window.location.href);
+  var park = url.searchParams.get("park");
+  var link = "https://developer.nps.gov/api/v1/parks";
+  link += '?parkCode=' + park + '&fields=images&api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
+  alert(link);
+  request.open('GET', link, true);
+  request.onload = function () {
+    var response = JSON.parse(request.responseText);
+    if (request.status == 200) {
+      if (response.total > 0) {
+        response.data.forEach(elem => {
+          elem.images.forEach(image => {
+            const img = document.createElement('img');
+            img.class = "park";
+            img.src = image.url;
+            container.appendChild(img);
+          });
+        });
+      }
+    } else {
+      alert("Invalid search.");
+    }
+  }
 }
 
 //Get all details needed
