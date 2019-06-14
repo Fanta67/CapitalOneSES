@@ -46,14 +46,16 @@ a:hover {
 }
 
 img.park {
-  width:600px;
-  height:500px;
+  width: 600px;
+  height: 500px;
+  display: inline-block;
+  margin: 20px;
 }
 
 img.icon {
-  width:20px;
-  height:20px;
-  margin:10px;
+  width: 20px;
+  height: 20px;
+  margin: 10px;
   display: inline-block;
 }
 
