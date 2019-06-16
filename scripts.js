@@ -1,5 +1,5 @@
 //Retrieve search results
-function submitSearchRequest(state, keywords, designation) {
+function submitSearchRequest(state, keywords, designation, start) {
   var container = document.getElementById('c2');
 
   //submit search request to API
@@ -17,7 +17,7 @@ function submitSearchRequest(state, keywords, designation) {
     if (designation) link += designation;
     link += '&'
   }
-  link += 'api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
+  link += 'start=' + start + '&api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
   request.open('GET', link, true);
 
   //load results
@@ -25,11 +25,33 @@ function submitSearchRequest(state, keywords, designation) {
     var stateParks = JSON.parse(request.responseText);
     if (request.status == 200) {
       const p = document.createElement('p');
-      var total = stateParks.total;
+      //show 50 results on the page
+      var total = stateParks.total > parseInt(start) + 49 ? parseInt(start) + 49 : stateParks.total;
       if (total == 0) {
         p.textContent = 'No results found.';
       } else {
-        p.textContent = 'Results 1-' + total + ' below. Click to see more details.';
+        p.textContent = 'Results ' + start + '-' + total;
+        //create navigation bar if 50+ results
+        if (stateParks.total > 50) {
+          p.textContent += ' of ' + stateParks.total;
+          const pageNav = document.createElement('div');
+          pageNav.setAttribute('id', 'footer');
+          //create appropriate number of pages
+          for (var i = 0; i < Math.ceil(stateParks.total / 50.0); i++) {
+            const button = document.createElement('button');
+            button.onclick = function () {
+              var url = window.location.href;
+              url = url.substring(0, url.lastIndexOf(start));
+              url += (button.textContent - 1) * 50 + 1;
+              location.href = url;
+            }
+            button.className = 'link';
+            button.textContent = i + 1;
+            pageNav.appendChild(button);
+          }
+          container.appendChild(pageNav);
+        }
+        p.textContent += ' below. Click to see more details.';
       }
       p.align = "center";
       container.appendChild(p);
@@ -237,7 +259,8 @@ function getResults() {
   var state = url.searchParams.get("state");
   var keywords = url.searchParams.getAll("keywords");
   var designation = url.searchParams.get("designation");
-  submitSearchRequest(state, keywords, designation);
+  var start = url.searchParams.get("start");
+  submitSearchRequest(state, keywords, designation, start);
 }
 
 //Pass filter parameters to url of results page
@@ -245,8 +268,7 @@ function submit() {
   var state = document.getElementById("state").value;
   var keywords = document.getElementById("keywords").value.split(", ");
   var designation = document.getElementById("designation").value;
-  var str = "results.html";
-  str += "?";
+  var str = "results.html?";
   if (state != "") {
     str += "state=" + state + "&";
   }
@@ -256,7 +278,8 @@ function submit() {
     }
   }
   if (designation != "") {
-    str += "designation=" + designation;
+    str += "designation=" + designation + "&";
   }
+  str += "start=1"
   location.href = str;
 }
