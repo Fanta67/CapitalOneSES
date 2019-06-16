@@ -35,7 +35,7 @@ function submitSearchRequest(state, keywords, designation, start) {
         if (stateParks.total > 50) {
           p.textContent += ' of ' + stateParks.total;
           const pageNav = document.createElement('div');
-          pageNav.setAttribute('id', 'footer');
+          pageNav.setAttribute('id', 'pages');
           //create appropriate number of pages
           for (var i = 0; i < Math.ceil(stateParks.total / 50.0); i++) {
             const button = document.createElement('button');
