@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="img/capitalOneLogo.png" width="150">
+    <img src="C1_logo.svg" width="150">
   </a>
 
   <h3 align="center">Software Engineering Summit August 2019 Submission</h3>
