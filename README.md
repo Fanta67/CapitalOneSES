@@ -16,7 +16,7 @@ You can find the deployed website [here](https://fanta67.github.io/CapitalOneSES
 * HTML/CSS/JavaScript
 
 ## Thoughts
-As my first experience working with web development and GitHub in general, there's nothing I used in this project that I didn't have to spend hours and hours looking up tutorials on. I had a blast learning about all different kinds of tools in the process of creating this webiste and though it took a bunch of time to even get started, I'm proud of how far I can see I've come when looking backwards. Initially I felt extremely hopeless as I didn't even know where to start and I wasn't getting anywhere after a full week or so of trying to figure out how to deploy a website in the first place, but I'm glad to have pushed through and given my very best effort on this project!
+As my first experience working with web development and GitHub in general, there's nothing I used in this project that I didn't have to spend hours and hours looking up tutorials on. I had a blast learning about all different kinds of tools in the process of creating this webiste and though it took a bunch of time to even get started, I'm extremely proud of how much I've learned when looking back. Initially I felt extremely hopeless as I didn't even know where to start and I wasn't getting anywhere after a full week or so of trying to figure out how to deploy a website in the first place, but I'm glad to have pushed through and given my very best effort on this project!
 
 ## Potential Improvements/Further Development
 * Find a way to hide the API key from the code. 
