@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="C1_logo.svg" width="150">
+    <img src="imagefiles/C1_logo.svg" width="150">
   </a>
 
   <h3 align="center">Software Engineering Summit August 2019 Submission</h3>
@@ -14,6 +14,12 @@ You can find the deployed website [here](https://fanta67.github.io/CapitalOneSES
 * Bootstrap
 * GitHub Pages
 * HTML/CSS/JavaScript
+
+## Page Breakdown
+* index.html - Home page, brief introduction.
+* search.html - Input search parameters, directs to results.
+* results.html - Present results based on search parameters, gives brief description of each park found, directs to detail-view.
+* detail-view.html - Learn everything about a specific park from visitor centers to lesson plans and more, provide external link to get even more information.
 
 ## Thoughts
 As my first experience working with web development and GitHub in general, there's nothing I used in this project that I didn't have to spend hours and hours looking up tutorials on. I had a blast learning about all different kinds of tools in the process of creating this webiste and though it took a bunch of time to even get started, I'm extremely proud of how much I've learned when looking back. Initially I felt extremely hopeless as I didn't even know where to start and I wasn't getting anywhere after a full week or so of trying to figure out how to deploy a website in the first place, but I'm glad to have pushed through and given my very best effort on this project!
