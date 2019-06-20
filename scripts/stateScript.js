@@ -1,7 +1,8 @@
+//get state input for search
 select = document.getElementById('state');
 
 var file = new XMLHttpRequest();
-file.open('GET', './stateCodes.txt', false);
+file.open('GET', './scripts/txtref/stateCodes.txt', false);
 file.onreadystatechange = function() {
   if (file.readyState == 4) {
     if (file.status == 200 || file.status == 0) {

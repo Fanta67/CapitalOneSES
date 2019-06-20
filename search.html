@@ -16,11 +16,11 @@
   <!-- Custom styles for this template -->
   <link href="css/simple-sidebar.css" rel="stylesheet">
 
-  <script src="scripts.js"></script>
+  <script src="scripts/loadScripts.js"></script>
 
-  <link href="style.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
 
-  <link rel="icon" href="NPS_logo.ico">
+  <link rel="icon" href="imagefiles/NPS_logo.ico">
 
 </head>
 
@@ -30,10 +30,10 @@
 
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">NPS Info Kiosk<img src="NPS_logo.ico" class="icon"></div>
+      <div class="sidebar-heading">NPS Info Kiosk<img src="imagefiles/NPS_logo.ico" class="icon"></div>
       <div class="list-group list-group-flush">
-        <a href="index.html" class="list-group-item list-group-item-action bg-light"><strong>Home<img src="Home.png" class="icon"></strong></a>
-        <a href="search.html" class="list-group-item list-group-item-action bg-light">Search<img src="Search.png" class="icon"></a>
+        <a href="index.html" class="list-group-item list-group-item-action bg-light"><strong>Home<img src="imagefiles/Home.png" class="icon"></strong></a>
+        <a href="search.html" class="list-group-item list-group-item-action bg-light">Search<img src="imagefiles/Search.png" class="icon"></a>
       </div>
     </div>
     <!-- Page Content -->
@@ -48,7 +48,7 @@
         <h2 class="mt-4 title">Filter by State</h2>
         <select id="state" name="state" style="width: 175px; position: absolute">
           <option value="" selected disabled hidden>Choose State</option>
-          <script src="stateScript.js"></script>
+          <script src="scripts/stateScript.js"></script>
         </select>
         <br></br>
 
@@ -59,7 +59,7 @@
         <h2 class="mt-4 title">Filter by Designation (Don't repeat keywords)</h2>
         <select id="designation" name="designation" style="width: 175px; position: absolute">
           <option value="" selected disabled hidden>Choose Designation</option>
-          <script src="designationScript.js"></script>
+          <script src="scripts/designationScript.js"></script>
         </select>
         <br></br>
 
