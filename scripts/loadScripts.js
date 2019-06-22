@@ -15,7 +15,7 @@ function submitSearchRequest(state, keywords, designation, start) {
       if (designation) link += '%2C%20';
     }
     if (designation) link += designation;
-    link += '&'
+    link += '&';
   }
   link += 'start=' + start + '&api_key=oeKLO4WwSs82lEaiPseSaWyx462T696oefty2fUS';
   request.open('GET', link, true);
@@ -225,7 +225,7 @@ function putHeader() {
   var url = new URL(window.location.href);
   var name = url.searchParams.get("name");
   document.getElementById("header").textContent += name + '!';
-  document.title = name + " - National Park Service Information Kiosk"
+  document.title = name + " - National Park Service Information Kiosk";
 
   //count down
   var timeleft = 9;
@@ -235,7 +235,7 @@ function putHeader() {
     timeleft -= 1;
     if(timeleft < 0){
       clearInterval(downloadTimer);
-      countdown.textContent = "Done loading! :)"
+      countdown.textContent = "Done loading! :)";
     }
   }, 1000);
 }
@@ -280,6 +280,6 @@ function submit() {
   if (designation != "") {
     str += "designation=" + designation + "&";
   }
-  str += "start=1"
+  str += "start=1";
   location.href = str;
 }
