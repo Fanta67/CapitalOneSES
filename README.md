@@ -2,7 +2,7 @@
     <img src="imagefiles/C1_logo.svg" width="150">
   </a>
 
-  <h3 align="center">Software Engineering Summit August 2019 Submission</h3>
+  <h3 align="center">Software Engineering Summit August 2019 Submission (Accepted!)</h3>
 </p>
 
 ## Capital One - National Park Service Information Kiosk
