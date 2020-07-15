@@ -280,6 +280,6 @@ function submit() {
   if (designation != "") {
     str += "designation=" + designation + "&";
   }
-  str += "start=1";
+  str += "start=0";
   location.href = str;
 }
